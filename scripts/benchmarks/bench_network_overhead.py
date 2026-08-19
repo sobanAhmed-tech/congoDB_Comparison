@@ -2,9 +2,9 @@
 Network Overhead Benchmark: measures pure round-trip latency to CognoDB Cloud.
 
 Runs a trivial no-op query (RETURN 1) 50 times and reports average, p50 and p95
-latency. This baseline is used to contextualise CognoDB Cloud results: since the
-Docker-hosted databases run locally with near-zero network latency, any raw
-comparison would unfairly penalise the managed cloud service.
+latency. This baseline helps contextualise CognoDB Cloud results and provides a
+measure of the raw network overhead between the benchmark host and the cloud
+endpoint.
 """
 import os
 import sys

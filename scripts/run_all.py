@@ -97,8 +97,12 @@ def run_load_phase():
     driver = None
     try:
         driver = db_connections.get_neo4j_driver()
-        load_neo4j.load_data(driver, NODES_CSV, EDGES_CSV)
-        load_results["neo4j"] = {"status": "ok"}
+        if driver:
+            load_neo4j.load_data(driver, NODES_CSV, EDGES_CSV)
+            load_results["neo4j"] = {"status": "ok"}
+        else:
+            print("  ⚠️  Neo4j not configured — skipped")
+            load_results["neo4j"] = {"status": "skipped"}
     except Exception as e:
         logger.error(f"Neo4j load failed: {e}")
         load_results["neo4j"] = {"status": "error", "error": str(e)}
@@ -111,8 +115,12 @@ def run_load_phase():
     driver = None
     try:
         driver = db_connections.get_memgraph_driver()
-        load_memgraph.load_data(driver, NODES_CSV, EDGES_CSV)
-        load_results["memgraph"] = {"status": "ok"}
+        if driver:
+            load_memgraph.load_data(driver, NODES_CSV, EDGES_CSV)
+            load_results["memgraph"] = {"status": "ok"}
+        else:
+            print("  ⚠️  Memgraph not configured — skipped")
+            load_results["memgraph"] = {"status": "skipped"}
     except Exception as e:
         logger.error(f"Memgraph load failed: {e}")
         load_results["memgraph"] = {"status": "error", "error": str(e)}
@@ -124,8 +132,12 @@ def run_load_phase():
     print("\n📦 Loading ArangoDB...")
     try:
         adb = db_connections.get_arangodb_db()
-        load_arangodb.load_data(adb, NODES_CSV, EDGES_CSV)
-        load_results["arangodb"] = {"status": "ok"}
+        if adb:
+            load_arangodb.load_data(adb, NODES_CSV, EDGES_CSV)
+            load_results["arangodb"] = {"status": "ok"}
+        else:
+            print("  ⚠️  ArangoDB not configured — skipped")
+            load_results["arangodb"] = {"status": "skipped"}
     except Exception as e:
         logger.error(f"ArangoDB load failed: {e}")
         load_results["arangodb"] = {"status": "error", "error": str(e)}
@@ -134,8 +146,12 @@ def run_load_phase():
     print("\n📦 Loading FalkorDB...")
     try:
         graph = db_connections.get_falkordb_graph()
-        load_falkordb.load_data(graph, NODES_CSV, EDGES_CSV)
-        load_results["falkordb"] = {"status": "ok"}
+        if graph:
+            load_falkordb.load_data(graph, NODES_CSV, EDGES_CSV)
+            load_results["falkordb"] = {"status": "ok"}
+        else:
+            print("  ⚠️  FalkorDB not configured — skipped")
+            load_results["falkordb"] = {"status": "skipped"}
     except Exception as e:
         logger.error(f"FalkorDB load failed: {e}")
         load_results["falkordb"] = {"status": "error", "error": str(e)}
@@ -167,14 +183,16 @@ def _build_platforms():
     # ArangoDB
     try:
         adb = db_connections.get_arangodb_db()
-        platforms["arangodb"] = {"type": "arango", "connection": adb}
+        if adb is not None:
+            platforms["arangodb"] = {"type": "arango", "connection": adb}
     except Exception as e:
         logger.warning(f"Could not connect to ArangoDB: {e}")
 
     # FalkorDB
     try:
         graph = db_connections.get_falkordb_graph()
-        platforms["falkordb"] = {"type": "falkordb", "connection": graph}
+        if graph is not None:
+            platforms["falkordb"] = {"type": "falkordb", "connection": graph}
     except Exception as e:
         logger.warning(f"Could not connect to FalkorDB: {e}")
 
