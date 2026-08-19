@@ -17,7 +17,10 @@ def load_data(graph, nodes_path: str, edges_path: str):
     start_time = time.time()
     
     # Clear graph
-    graph.delete()
+    try:
+        graph.delete()
+    except Exception:
+        pass
     
     node_query = """
     UNWIND $batch AS row
