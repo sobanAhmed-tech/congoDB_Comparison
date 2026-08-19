@@ -19,6 +19,8 @@ import time
 import argparse
 import logging
 import pandas as pd
+import glob
+import shutil
 
 # ---------------------------------------------------------------------------
 # Path setup — make all project modules importable
@@ -60,6 +62,28 @@ def _get_start_nodes():
     """Read node IDs from the processed CSV for benchmark sampling."""
     df = pd.read_csv(NODES_CSV)
     return df["id"].tolist()
+
+def clean_old_results():
+    """Remove old benchmark results and charts to ensure a clean run."""
+    print("🧹 Cleaning up old results and charts...")
+    
+    # Remove old raw and summary JSONs
+    for path in [RAW_DIR, SUMMARY_DIR]:
+        if os.path.exists(path):
+            for f in glob.glob(os.path.join(path, "*.json")):
+                try:
+                    os.remove(f)
+                except Exception as e:
+                    logger.warning(f"Could not delete {f}: {e}")
+                    
+    # Remove old charts
+    charts_dir = os.path.join(BASE_DIR, "charts")
+    if os.path.exists(charts_dir):
+        for f in glob.glob(os.path.join(charts_dir, "*.png")):
+            try:
+                os.remove(f)
+            except Exception as e:
+                logger.warning(f"Could not delete {f}: {e}")
 
 
 # ===================================================================
@@ -279,6 +303,9 @@ def main():
     print("╚══════════════════════════════════════════════════════════╝")
 
     overall_start = time.time()
+    
+    # Clean up old results before starting
+    clean_old_results()
 
     # Verify dataset exists
     if not os.path.exists(NODES_CSV) or not os.path.exists(EDGES_CSV):
