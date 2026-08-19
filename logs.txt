@@ -1,0 +1,145 @@
+╔══════════════════════════════════════════════════════════╗
+║       CognoDB Graph Database Benchmark Suite            ║
+╚══════════════════════════════════════════════════════════╝
+
+  Dataset: 19483 nodes loaded from CSV
+
+============================================================
+  PHASE 1 — DATA LOADING
+============================================================
+
+📦 Loading CognoDB...
+Loading data into CognoDB from E:\WinLogics\Evaluation2\cognodb-graph-benchmark\data\processed\nodes.csv and E:\WinLogics\Evaluation2\cognodb-graph-benchmark\data\processed\edges.csv
+CognoDB Load complete in 42.37s
+Nodes/sec: 459.82, Relationships/sec: 2360.13
+
+📦 Loading Neo4j...
+Loading data into Neo4j from E:\WinLogics\Evaluation2\cognodb-graph-benchmark\data\processed\nodes.csv and E:\WinLogics\Evaluation2\cognodb-graph-benchmark\data\processed\edges.csv
+
+📦 Loading Memgraph...
+Loading data into Memgraph from E:\WinLogics\Evaluation2\cognodb-graph-benchmark\data\processed\nodes.csv and E:\WinLogics\Evaluation2\cognodb-graph-benchmark\data\processed\edges.csv
+
+📦 Loading ArangoDB...
+
+📦 Loading FalkorDB...
+
+============================================================
+  PHASE 2 — BENCHMARKS
+============================================================
+
+  Connected platforms: ['cognodb', 'neo4j', 'memgraph']
+
+
+🔗 Traversal Benchmark (1-hop / 2-hop / 3-hop)
+--------------------------------------------------
+  ⏱  1-hop traversal on cognodb...
+       p50=298.00ms  p95=327.19ms
+  ⏱  1-hop traversal on neo4j...
+       ❌ FAILED: Couldn't connect to localhost:7687 (resolved to ()):
+Failed to establish connection to ResolvedIPv6Address(('::1', 7687, 0, 0)) (reason [WinError 10061] No connection could be made because the target machine actively refused it)
+Failed to establish connection to ResolvedIPv4Address(('127.0.0.1', 7687)) (reason [WinError 10061] No connection could be made because the target machine actively refused it)
+  ⏱  1-hop traversal on memgraph...
+       ❌ FAILED: Couldn't connect to localhost:7688 (resolved to ()):
+Failed to establish connection to ResolvedIPv6Address(('::1', 7688, 0, 0)) (reason [WinError 10061] No connection could be made because the target machine actively refused it)
+Failed to establish connection to ResolvedIPv4Address(('127.0.0.1', 7688)) (reason [WinError 10061] No connection could be made because the target machine actively refused it)
+  ⏱  2-hop traversal on cognodb...
+       p50=278.25ms  p95=332.70ms
+  ⏱  2-hop traversal on neo4j...
+       ❌ FAILED: Couldn't connect to localhost:7687 (resolved to ()):
+Failed to establish connection to ResolvedIPv6Address(('::1', 7687, 0, 0)) (reason [WinError 10061] No connection could be made because the target machine actively refused it)
+Failed to establish connection to ResolvedIPv4Address(('127.0.0.1', 7687)) (reason [WinError 10061] No connection could be made because the target machine actively refused it)
+  ⏱  2-hop traversal on memgraph...
+       ❌ FAILED: Couldn't connect to localhost:7688 (resolved to ()):
+Failed to establish connection to ResolvedIPv6Address(('::1', 7688, 0, 0)) (reason [WinError 10061] No connection could be made because the target machine actively refused it)
+Failed to establish connection to ResolvedIPv4Address(('127.0.0.1', 7688)) (reason [WinError 10061] No connection could be made because the target machine actively refused it)
+  ⏱  3-hop traversal on cognodb...
+       ❌ FAILED: Failed to read from defunct connection IPv4Address(('db-fae7fb23.databases.cognodb.com', 7687)) (ResolvedIPv4Address(('8.234.181.95', 7687)))
+  ⏱  3-hop traversal on neo4j...
+       ❌ FAILED: Couldn't connect to localhost:7687 (resolved to ()):
+Failed to establish connection to ResolvedIPv6Address(('::1', 7687, 0, 0)) (reason [WinError 10061] No connection could be made because the target machine actively refused it)
+Failed to establish connection to ResolvedIPv4Address(('127.0.0.1', 7687)) (reason [WinError 10061] No connection could be made because the target machine actively refused it)
+  ⏱  3-hop traversal on memgraph...
+       ❌ FAILED: Couldn't connect to localhost:7688 (resolved to ()):
+Failed to establish connection to ResolvedIPv6Address(('::1', 7688, 0, 0)) (reason [WinError 10061] No connection could be made because the target machine actively refused it)
+Failed to establish connection to ResolvedIPv4Address(('127.0.0.1', 7688)) (reason [WinError 10061] No connection could be made because the target machine actively refused it)
+  📄 Saved → E:\WinLogics\Evaluation2\cognodb-graph-benchmark\results\raw\traversal_results.json
+
+🔍 Lookup Benchmark (point / filtered)
+--------------------------------------------------
+  ⏱  point_lookup on cognodb...
+       p50=262.25ms  p95=343.24ms
+  ⏱  point_lookup on neo4j...
+       ❌ FAILED: Couldn't connect to localhost:7687 (resolved to ()):
+Failed to establish connection to ResolvedIPv6Address(('::1', 7687, 0, 0)) (reason [WinError 10061] No connection could be made because the target machine actively refused it)
+Failed to establish connection to ResolvedIPv4Address(('127.0.0.1', 7687)) (reason [WinError 10061] No connection could be made because the target machine actively refused it)
+  ⏱  point_lookup on memgraph...
+       ❌ FAILED: Couldn't connect to localhost:7688 (resolved to ()):
+Failed to establish connection to ResolvedIPv6Address(('::1', 7688, 0, 0)) (reason [WinError 10061] No connection could be made because the target machine actively refused it)
+Failed to establish connection to ResolvedIPv4Address(('127.0.0.1', 7688)) (reason [WinError 10061] No connection could be made because the target machine actively refused it)
+  ⏱  filtered_lookup on cognodb...
+       p50=283.71ms  p95=327.21ms
+  ⏱  filtered_lookup on neo4j...
+       ❌ FAILED: Couldn't connect to localhost:7687 (resolved to ()):
+Failed to establish connection to ResolvedIPv6Address(('::1', 7687, 0, 0)) (reason [WinError 10061] No connection could be made because the target machine actively refused it)
+Failed to establish connection to ResolvedIPv4Address(('127.0.0.1', 7687)) (reason [WinError 10061] No connection could be made because the target machine actively refused it)
+  ⏱  filtered_lookup on memgraph...
+       ❌ FAILED: Couldn't connect to localhost:7688 (resolved to ()):
+Failed to establish connection to ResolvedIPv6Address(('::1', 7688, 0, 0)) (reason [WinError 10061] No connection could be made because the target machine actively refused it)
+Failed to establish connection to ResolvedIPv4Address(('127.0.0.1', 7688)) (reason [WinError 10061] No connection could be made because the target machine actively refused it)
+  📄 Saved → E:\WinLogics\Evaluation2\cognodb-graph-benchmark\results\raw\lookup_results.json
+
+📊 Aggregation Benchmark (count / group-by)
+--------------------------------------------------
+  ⏱  count aggregation on cognodb...
+       p50=252.61ms  p95=333.15ms
+  ⏱  count aggregation on neo4j...
+       ❌ FAILED: Couldn't connect to localhost:7687 (resolved to ()):
+Failed to establish connection to ResolvedIPv6Address(('::1', 7687, 0, 0)) (reason [WinError 10061] No connection could be made because the target machine actively refused it)
+Failed to establish connection to ResolvedIPv4Address(('127.0.0.1', 7687)) (reason [WinError 10061] No connection could be made because the target machine actively refused it)
+  ⏱  count aggregation on memgraph...
+       ❌ FAILED: Couldn't connect to localhost:7688 (resolved to ()):
+Failed to establish connection to ResolvedIPv6Address(('::1', 7688, 0, 0)) (reason [WinError 10061] No connection could be made because the target machine actively refused it)
+Failed to establish connection to ResolvedIPv4Address(('127.0.0.1', 7688)) (reason [WinError 10061] No connection could be made because the target machine actively refused it)
+  ⏱  groupby aggregation on cognodb...
+       p50=366.74ms  p95=576.73ms
+  ⏱  groupby aggregation on neo4j...
+       ❌ FAILED: Couldn't connect to localhost:7687 (resolved to ()):
+Failed to establish connection to ResolvedIPv6Address(('::1', 7687, 0, 0)) (reason [WinError 10061] No connection could be made because the target machine actively refused it)
+Failed to establish connection to ResolvedIPv4Address(('127.0.0.1', 7687)) (reason [WinError 10061] No connection could be made because the target machine actively refused it)
+  ⏱  groupby aggregation on memgraph...
+       ❌ FAILED: Couldn't connect to localhost:7688 (resolved to ()):
+Failed to establish connection to ResolvedIPv6Address(('::1', 7688, 0, 0)) (reason [WinError 10061] No connection could be made because the target machine actively refused it)
+Failed to establish connection to ResolvedIPv4Address(('127.0.0.1', 7688)) (reason [WinError 10061] No connection could be made because the target machine actively refused it)
+  📄 Saved → E:\WinLogics\Evaluation2\cognodb-graph-benchmark\results\raw\aggregation_results.json
+
+⚡ Mixed Workload Benchmark (concurrent read/write)
+--------------------------------------------------
+  ⏱  Mixed workload: cognodb @ 10 clients for 30s...
+       1065 ops in 30.1s → 35.4 QPS
+  ⏱  Mixed workload: neo4j @ 10 clients for 30s...
+       0 ops in 32.6s → 0.0 QPS
+  ⏱  Mixed workload: memgraph @ 10 clients for 30s...
+       0 ops in 32.6s → 0.0 QPS
+  ⏱  Mixed workload: cognodb @ 20 clients for 30s...
+       2106 ops in 30.2s → 69.7 QPS
+  ⏱  Mixed workload: neo4j @ 20 clients for 30s...
+       0 ops in 32.5s → 0.0 QPS
+  ⏱  Mixed workload: memgraph @ 20 clients for 30s...
+       0 ops in 186.7s → 0.0 QPS
+  ⏱  Mixed workload: cognodb @ 40 clients for 30s...
+       4632 ops in 30.5s → 151.6 QPS
+  ⏱  Mixed workload: neo4j @ 40 clients for 30s...
+       0 ops in 32.6s → 0.0 QPS
+  ⏱  Mixed workload: memgraph @ 40 clients for 30s...
+       0 ops in 32.6s → 0.0 QPS
+  📄 Saved → E:\WinLogics\Evaluation2\cognodb-graph-benchmark\results\raw\mixed_results.json
+
+🌐 Network Overhead Baseline (CognoDB)
+--------------------------------------------------
+  ⏱  Measuring network round-trip to CognoDB (RETURN 1 × 50)...
+       avg=285.40ms  p50=299.08ms  p95=367.13ms
+  📄 Saved → E:\WinLogics\Evaluation2\cognodb-graph-benchmark\results\raw\network_overhead_results.json
+
+✅ Summary saved → E:\WinLogics\Evaluation2\cognodb-graph-benchmark\results\summary\benchmark_summary.json
+
+🏁 All done in 942.5s
