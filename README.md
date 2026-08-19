@@ -44,15 +44,15 @@ Every benchmark is run ≥ 100 iterations (after warm-up), with latency percenti
 
 ## Databases Under Test
 
-| # | Database | Deployment | Protocol | Resource Limits |
+| # | Database | Deployment | Protocol | Recommended Free Tier Limits |
 |---|---|---|---|---|
 | 1 | **CognoDB Cloud** (c0 free tier) | Managed cloud | Bolt (`bolt+s://`) | 0.5 vCPU, 256 MB RAM, 1 GB disk |
-| 2 | **Neo4j 5** | Docker (self-hosted) | Bolt (`bolt://`) | 0.5 CPU, 256 MB RAM |
-| 3 | **Memgraph** | Docker (self-hosted) | Bolt (`bolt://`) | 0.5 CPU, 256 MB RAM |
-| 4 | **ArangoDB** | Docker (self-hosted) | HTTP + AQL | 0.5 CPU, 256 MB RAM |
-| 5 | **FalkorDB** | Docker (self-hosted) | Redis protocol + Cypher | 0.5 CPU, 256 MB RAM |
+| 2 | **Neo4j Aura** | Managed cloud | Bolt (`neo4j+s://`) | Similar to Aura Free |
+| 3 | **Memgraph Cloud** | Managed cloud | Bolt (`bolt+s://`) | Sandbox/Trial specs |
+| 4 | **ArangoDB Cloud** | Managed cloud | HTTP + AQL | Oasis free tier |
+| 5 | **FalkorDB Cloud** | Managed cloud | Redis protocol + Cypher | Free tier specs |
 
-All four Docker databases are capped to `--cpus=0.5 --memory=256m` via `docker-compose.yml` to match CognoDB's free-tier specifications.
+*Note: All databases should ideally be provisioned on their respective free cloud tiers to ensure a fair resource-constrained comparison.*
 
 ---
 
@@ -60,7 +60,7 @@ All four Docker databases are capped to `--cpus=0.5 --memory=256m` via `docker-c
 
 ### Fairness
 
-* **Same resource limits everywhere.** Docker containers use `deploy.resources.limits` to cap CPU and memory identically to the CognoDB c0 free tier.
+* **Fairness via Cloud Free Tiers.** All databases are tested using their managed cloud free tiers (where available) to compare out-of-the-box cloud performance.
 * **Same dataset, same logical queries.** The exact same `nodes.csv` / `edges.csv` are loaded into every platform. Cypher and AQL queries are logically equivalent.
 * **Same client machine.** All benchmarks are driven from the same host.
 
@@ -79,8 +79,8 @@ All four Docker databases are capped to `--cpus=0.5 --memory=256m` via `docker-c
 
 ### Prerequisites
 
-* **Docker Desktop** (with Compose v2)
 * **Python 3.10+**
+* Cloud database credentials for all platforms
 
 ### Steps
 
@@ -89,26 +89,23 @@ All four Docker databases are capped to `--cpus=0.5 --memory=256m` via `docker-c
 git clone https://github.com/<your-username>/cognodb-graph-benchmark.git
 cd cognodb-graph-benchmark
 
-# 2. Start the four local databases
-docker-compose up -d
-
-# 3. Create a Python virtual environment and install dependencies
+# 2. Create a Python virtual environment and install dependencies
 python -m venv venv
 source venv/bin/activate        # Linux/macOS
 # .\venv\Scripts\Activate.ps1   # Windows PowerShell
 pip install -r requirements.txt
 
-# 4. Configure credentials
+# 3. Configure credentials
 cp .env.example .env
-# Edit .env and fill in your CognoDB URI / password
+# Edit .env and fill in your connection URIs, usernames, and passwords for ALL cloud platforms.
 
-# 5. Download and prepare the dataset
+# 4. Download and prepare the dataset
 python scripts/download_dataset.py
 
-# 6. Run the full benchmark suite
+# 5. Run the full benchmark suite
 python scripts/run_all.py
 
-# 7. Generate charts
+# 6. Generate charts
 python charts/generate_charts.py
 ```
 
@@ -203,17 +200,17 @@ Mix: 70 % reads (point lookup) / 30 % writes (property update). Duration: 30 sec
 | p50 | _TBD_ ms |
 | p95 | _TBD_ ms |
 
-This measures the pure network round-trip from the benchmark host to the CognoDB Cloud endpoint. Local Docker databases have near-zero network latency by comparison.
+This measures the pure network round-trip from the benchmark host to the CognoDB Cloud endpoint. Note that since all databases are now tested in the cloud, network latency applies fairly to all of them.
 
 ### Resource Footprint
 
 | Platform | Instance Specs | Observed Memory | Stored Data Size |
 |---|---|---|---|
-| CognoDB | 0.5 vCPU, 256 MB, 1 GB disk | Not observable (managed) | Not observable |
-| Neo4j | 0.5 CPU, 256 MB (Docker) | `docker stats` | _TBD_ |
-| Memgraph | 0.5 CPU, 256 MB (Docker) | `docker stats` | _TBD_ |
-| ArangoDB | 0.5 CPU, 256 MB (Docker) | `docker stats` | _TBD_ |
-| FalkorDB | 0.5 CPU, 256 MB (Docker) | `docker stats` | _TBD_ |
+| CognoDB | 0.5 vCPU, 256 MB, 1 GB disk | Managed | _TBD_ |
+| Neo4j | Cloud Free Tier | Managed | _TBD_ |
+| Memgraph | Cloud Free Tier | Managed | _TBD_ |
+| ArangoDB | Cloud Free Tier | Managed | _TBD_ |
+| FalkorDB | Cloud Free Tier | Managed | _TBD_ |
 
 ---
 
@@ -242,15 +239,10 @@ Key areas to address:
 
 ## Caveats
 
-1. **Network latency.** CognoDB Cloud is accessed over the public internet, while Docker databases run locally with near-zero network overhead. The `bench_network_overhead.py` script quantifies this separately so readers can contextualise the raw numbers.
-
+1. **Network latency.** All databases are tested as managed cloud services. Network latency heavily depends on the geographic region of the provisioned cluster relative to the machine running the benchmark.
 2. **Free-tier throttling.** Managed platforms may apply rate limits or burstable CPU throttling on free tiers that are not visible to the benchmark client.
-
 3. **Query language differences.** Neo4j, Memgraph, CognoDB and FalkorDB use Cypher; ArangoDB uses AQL. Queries are logically equivalent but syntactically different, which may affect query planning.
-
-4. **Docker resource caps.** Docker `deploy.resources.limits` are enforced by cgroups and may behave differently from native hardware limits on managed platforms.
-
-5. **Single client machine.** All benchmarks are driven from a single host. Network conditions, CPU contention and OS scheduling can introduce variance between runs.
+4. **Single client machine.** All benchmarks are driven from a single host. Network conditions, CPU contention and OS scheduling can introduce variance between runs.
 
 6. **Python GIL.** The mixed-workload benchmark uses `threading`, which is subject to the Python Global Interpreter Lock. True parallelism requires multiprocessing or async I/O; threading is used here because the workload is I/O-bound (network calls).
 
