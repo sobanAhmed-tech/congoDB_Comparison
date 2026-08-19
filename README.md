@@ -119,12 +119,68 @@ Neo4j is built on the Java Virtual Machine (JVM). The JVM inherently requires hu
 ---
 
 ## 🚀 5. How to Reproduce
-1. Install requirements: `pip install -r requirements.txt`
-2. Download dataset: `python scripts/download_dataset.py`
-3. Start the constrained Docker environment: `docker-compose up -d`
-4. Run the benchmark: `python scripts/run_all.py`
 
-*Note: You must supply a CognoDB URI in the `.env` file to include CognoDB in the results.*
+This project is built to be a one-click reproducible benchmark. Anyone with a basic development environment can verify these results.
+
+### Prerequisites
+Before running the benchmark, ensure you have the following installed on your machine:
+1. **Python 3.8+**: [Download here](https://www.python.org/downloads/)
+2. **Docker Desktop**: Required to spin up the local competitor databases under the strict 256MB RAM constraint. [Download here](https://www.docker.com/products/docker-desktop/)
+3. **Git**: To clone this repository.
+
+### Step-by-Step Execution
+
+**1. Clone the repository**
+```bash
+git clone https://github.com/sobanAhmed-tech/congoDB_Comparison.git
+cd congoDB_Comparison
+```
+
+**2. Set up the Python Environment**
+It is highly recommended to use a virtual environment:
+```bash
+python -m venv venv
+# On Windows:
+.\venv\Scripts\activate
+# On Mac/Linux:
+source venv/bin/activate
+
+pip install -r requirements.txt
+```
+
+**3. Configure Credentials**
+Create a `.env` file in the root of the project and add your CognoDB Cloud connection details:
+```env
+MEMGRAPH_URI=bolt+s://<your-id>.memgraph.cloud:7687
+MEMGRAPH_USER=your_user
+MEMGRAPH_PASSWORD=your_password
+```
+*(Note: CognoDB uses the Bolt protocol. Ensure you map the credentials to the variables expected by `db_connections.py`)*
+
+**4. Download the Dataset**
+Pull the 100k-edge subset of the SNAP `soc-Pokec` social network:
+```bash
+python scripts/download_dataset.py
+```
+
+**5. Start the Competitors**
+Spin up Neo4j, Memgraph, ArangoDB, and FalkorDB using the constrained Docker environment:
+```bash
+docker-compose up -d
+```
+*Wait ~15-30 seconds for the databases to fully initialize.*
+
+**6. Run the Benchmark Suite**
+A single script will load the data into all 5 databases, execute the traversals, lookups, aggregations, and mixed workloads, and compile the results:
+```bash
+python scripts/run_all.py
+```
+
+**7. (Optional) Rebuild the Charts**
+If you want to regenerate the visual bar charts based on your new run:
+```bash
+python -X utf8 charts/generate_charts.py
+```
 
 ---
 
