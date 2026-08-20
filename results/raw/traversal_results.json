@@ -1,0 +1,116 @@
+{
+  "cognodb_1hop": {
+    "platform": "cognodb",
+    "hop_depth": 1,
+    "p50": 265.32640000004903,
+    "p95": 331.1557000009998,
+    "mean": 277.4419809999745,
+    "count": 100
+  },
+  "neo4j_1hop": {
+    "platform": "neo4j",
+    "hop_depth": 1,
+    "p50": 16.722700000173063,
+    "p95": 97.78659999892625,
+    "mean": 45.860379000059766,
+    "count": 100
+  },
+  "memgraph_1hop": {
+    "platform": "memgraph",
+    "hop_depth": 1,
+    "p50": 1.5221000003293739,
+    "p95": 3.5573400004977884,
+    "mean": 2.858981999961543,
+    "count": 100
+  },
+  "arangodb_1hop": {
+    "platform": "arangodb",
+    "hop_depth": 1,
+    "p50": 50.40215000008175,
+    "p95": 59.37674500119101,
+    "mean": 52.34638200006884,
+    "count": 100
+  },
+  "falkordb_1hop": {
+    "platform": "falkordb",
+    "hop_depth": 1,
+    "p50": 1.9118500013064477,
+    "p95": 3.0933550003283012,
+    "mean": 2.0898579999447975,
+    "count": 100
+  },
+  "cognodb_2hop": {
+    "platform": "cognodb",
+    "hop_depth": 2,
+    "p50": 217.97140000035142,
+    "p95": 309.68931999987035,
+    "mean": 242.4126239999532,
+    "count": 100
+  },
+  "neo4j_2hop": {
+    "platform": "neo4j",
+    "hop_depth": 2,
+    "p50": 16.283599999951548,
+    "p95": 98.08238499945219,
+    "mean": 51.91973200006032,
+    "count": 100
+  },
+  "memgraph_2hop": {
+    "platform": "memgraph",
+    "hop_depth": 2,
+    "p50": 2.275200000440236,
+    "p95": 3.9280899996811054,
+    "mean": 3.2755650000763126,
+    "count": 100
+  },
+  "arangodb_2hop": {
+    "platform": "arangodb",
+    "hop_depth": 2,
+    "p50": 48.14159999932599,
+    "p95": 54.51367499990738,
+    "mean": 49.049520999906235,
+    "count": 100
+  },
+  "falkordb_2hop": {
+    "platform": "falkordb",
+    "hop_depth": 2,
+    "p50": 2.151400000002468,
+    "p95": 4.481284999383205,
+    "mean": 2.6468239999849175,
+    "count": 100
+  },
+  "cognodb_3hop": {
+    "platform": "cognodb",
+    "hop_depth": 3,
+    "error": "Failed to read from defunct connection IPv4Address(('db-fae7fb23.databases.cognodb.com', 7687)) (ResolvedIPv4Address(('8.234.181.95', 7687)))"
+  },
+  "neo4j_3hop": {
+    "platform": "neo4j",
+    "hop_depth": 3,
+    "p50": 12.578799999573675,
+    "p95": 96.26408500043908,
+    "mean": 92.10899999998219,
+    "count": 100
+  },
+  "memgraph_3hop": {
+    "platform": "memgraph",
+    "hop_depth": 3,
+    "p50": 2.231150000625348,
+    "p95": 51.331165000101464,
+    "mean": 32.02475800004322,
+    "count": 100
+  },
+  "arangodb_3hop": {
+    "platform": "arangodb",
+    "hop_depth": 3,
+    "p50": 49.220849999073835,
+    "p95": 350.6018400009435,
+    "mean": 117.47251999997388,
+    "count": 100
+  },
+  "falkordb_3hop": {
+    "platform": "falkordb",
+    "hop_depth": 3,
+    "error": "Query timed out"
+  }
+}

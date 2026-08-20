@@ -1,0 +1,82 @@
+{
+  "cognodb_point_lookup": {
+    "platform": "cognodb",
+    "benchmark": "point_lookup",
+    "p50": 264.61264999943523,
+    "p95": 325.6807650007431,
+    "mean": 265.47368199999255,
+    "count": 100
+  },
+  "neo4j_point_lookup": {
+    "platform": "neo4j",
+    "benchmark": "point_lookup",
+    "p50": 13.423000000329921,
+    "p95": 87.7268449992698,
+    "mean": 34.03749799996149,
+    "count": 100
+  },
+  "memgraph_point_lookup": {
+    "platform": "memgraph",
+    "benchmark": "point_lookup",
+    "p50": 2.2507999992740224,
+    "p95": 3.7753299996438723,
+    "mean": 3.0433730000731885,
+    "count": 100
+  },
+  "arangodb_point_lookup": {
+    "platform": "arangodb",
+    "benchmark": "point_lookup",
+    "p50": 57.91450000015175,
+    "p95": 68.81898999999974,
+    "mean": 61.178657000036765,
+    "count": 100
+  },
+  "falkordb_point_lookup": {
+    "platform": "falkordb",
+    "benchmark": "point_lookup",
+    "p50": 1.6330999997080653,
+    "p95": 2.929454999684822,
+    "mean": 1.7733380000390753,
+    "count": 100
+  },
+  "cognodb_filtered_lookup": {
+    "platform": "cognodb",
+    "benchmark": "filtered_lookup",
+    "p50": 254.15404999966995,
+    "p95": 316.9232049998754,
+    "mean": 268.4622509999099,
+    "count": 100
+  },
+  "neo4j_filtered_lookup": {
+    "platform": "neo4j",
+    "benchmark": "filtered_lookup",
+    "p50": 12.758500000018103,
+    "p95": 118.85547499878133,
+    "mean": 47.78891799996927,
+    "count": 100
+  },
+  "memgraph_filtered_lookup": {
+    "platform": "memgraph",
+    "benchmark": "filtered_lookup",
+    "p50": 3.5940000007030903,
+    "p95": 43.7305299999025,
+    "mean": 6.941532000091684,
+    "count": 100
+  },
+  "arangodb_filtered_lookup": {
+    "platform": "arangodb",
+    "benchmark": "filtered_lookup",
+    "p50": 51.026699999965786,
+    "p95": 56.804245000330404,
+    "mean": 51.55030300005819,
+    "count": 100
+  },
+  "falkordb_filtered_lookup": {
+    "platform": "falkordb",
+    "benchmark": "filtered_lookup",
+    "p50": 3.265250000367814,
+    "p95": 5.92197500027396,
+    "mean": 3.632441000045219,
+    "count": 100
+  }
+}
