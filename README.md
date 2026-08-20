@@ -111,6 +111,7 @@ When CognoDB completed a 1-hop traversal in **214ms**, it means the actual datab
 Neo4j is built on the Java Virtual Machine (JVM). The JVM inherently requires hundreds of megabytes just to boot, leaving zero room for page caches or transaction memory when capped at 256MB. When Neo4j threw a `TransactionCommitFailed` OOM error while loading the 100k dataset, it proved our thesis: **Enterprise JVM architectures are fundamentally incompatible with low-resource environments.** 
 
 ### 🚨 Concern 3: "Why did CognoDB fail on the 3-hop traversal?"
+
 **The Rebuttal:** A 3-hop traversal on a highly connected 100,000-edge social network causes a massive combinatorial explosion. On a 256MB instance, holding that much state takes time. The cloud provider's network load balancer timed out and dropped the idle TCP socket before the query could finish. This was a network-level timeout, not an internal database crash. CognoDB flawlessly executed 1-hop, 2-hop, and complex aggregations (GROUP BY) under the exact same constraints. 
 
 ### 🚨 Concern 4: "Why did Memgraph and FalkorDB do so well?"
