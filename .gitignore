@@ -6,3 +6,4 @@ data/raw/
 results/
 charts/*.png
 data/processed/
+logs.txt
